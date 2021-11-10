@@ -7,7 +7,7 @@ public static class WalkalbeCalculator
 {
     public static bool[,] calculateWalkable()
     {
-        Tilemap ground = GameObject.Find("MapManager").GetComponent<MapManager>().ground;
+        Tilemap ground = GameObject.Find("MapManager").GetComponent<MapManager>().Ground;
         int size = GameObject.Find("MapManager").GetComponent<MapManager>().MapSize;
 
         bool[,] walkable = new bool[size, size];

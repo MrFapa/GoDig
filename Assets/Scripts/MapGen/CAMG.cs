@@ -1,61 +1,62 @@
 ﻿using UnityEngine;
+using LandTypes;
 using System.Linq;
 
-public class CAMG
+public class CellularAutomataMapGenerator
 {
-    public static MapTile[,] generateMap(MapTile[,] map, int runs, int waterLevel)
+    public static void generateMap(ref Map map, int runs, int waterLevel)
     {
-        map = randomize(map, waterLevel);
-        map = smoothen(map, runs);
-        return map;
+        randomize(ref map, waterLevel);
+        smoothen(ref map, runs);
     }
 
-    static MapTile[,] randomize(MapTile[,] map, int waterLevel)
+    static void randomize(ref Map map, int waterLevel)
     {
-        for(int i = 0; i < map.GetLength(0); i++)
+        for(int i = 0; i < map.Size; i++)
         {
-            for (int j = 0; j < map.GetLength(1); j++)
+            for (int j = 0; j < map.Size; j++)
             {
-                map[i, j].Value = (Random.Range(0, 1000) > waterLevel) ? 1 : 0;
+                map.getTile(new Vector2Int(i, j)).LandValue = (Random.Range(0, 1000) > waterLevel) ? landValueType.land : landValueType.water;
             }
         }
-        return map;
     }
 
-    static MapTile[,] smoothen(MapTile[,] map, int runs)
+    static void smoothen(ref Map map, int runs)
     {
         for (int run = 0; run < runs; run++)
         {
-            int[,] mapUpdate = new int[map.GetLength(0), map.GetLength(1)];
-            for (int i = 0; i < map.GetLength(0); i++)
+            landValueType[,] mapUpdate = new landValueType[map.Size, map.Size];
+            for (int i = 0; i < map.Size; i++)
             {
-                for (int j = 0; j < map.GetLength(1); j++)
+                for (int j = 0; j < map.Size; j++)
                 {
-                    mapUpdate[i, j] = checkNextGenOfTile(map[i, j].getNeighbours());
+                    mapUpdate[i, j] = getSmoothedLandValueType(map.getTile(new Vector2Int(i, j)).getNeighbours());
                 }
             }
 
-            for (int i = 0; i < map.GetLength(0); i++)
+            for (int i = 0; i < map.Size; i++)
             {
-                for (int j = 0; j < map.GetLength(1); j++)
+                for (int j = 0; j < map.Size; j++)
                 {
-                    map[i, j].Value = mapUpdate[i, j];
+                    map.getTile(new Vector2Int(i, j)).LandValue = mapUpdate[i, j];
                 }
             }
         }
-        return map;
     }
 
-    static int checkNextGenOfTile(Neighbours neighbours)
+    static landValueType getSmoothedLandValueType(Neighbours neighbours)
     {
         int landcount = 0;
         foreach(MapTile neighbour in neighbours.allNeighbours)
         {
-            landcount += neighbour.Value;
+            if((neighbour != null) && (neighbour.LandValue == landValueType.land))
+            {
+                landcount++;
+            }
         }
         if (landcount >= 5)
-            return 1;
+            return landValueType.land;
 
-        return 0;
+        return landValueType.water;
     }
 }

@@ -15,6 +15,14 @@ public class Neighbours
     public MapTile bottomMiddle;
     public MapTile bottomRight;
 
+    public System.Collections.IEnumerable allignedNeighbours()
+    {
+        yield return 1;
+        yield return 3;
+        yield return 5;
+        yield return 7;
+    }
+
     void specifyNeighbours()
     {
         topLeft = this.allNeighbours[0];

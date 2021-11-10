@@ -1,50 +1,56 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LandTypes;
 
-public class MapTile 
+public class MapTile
 {
-    private Vector2 position;
-    public Vector2 Position
+    private Vector2Int position;
+    public Vector2Int Position
     {
         get { return position; }
         set { position = value; }
     }
 
-    private int landValue;
-    public int Value { get { return landValue; } set { landValue = value; } }
 
-    private bool isCoast;
+    private landValueType landValue;
+    public landValueType LandValue { get; set; }
+
     private Neighbours neighbours;
 
-    public MapTile(Vector2 position)
+    public MapTile(Vector2Int position)
     {
         this.position = position;
         this.neighbours = new Neighbours();
-        this.landValue = -1; //default value
+        this.landValue = landValueType.undefined; //default value
     }
 
-    public bool checkCoast()
+    public void updateLandType()
     {
-        if(neighbours != null)
+        if (neighbours != null)
         {
-            if(this.landValue == 1)
+            if (this.landValue == landValueType.land || this.landValue == landValueType.coast)
             {
-                for(int i = 1; i == 7; i += 2)
+                foreach (int allignedNeighbour in this.neighbours.allignedNeighbours())
                 {
-                    if(this.neighbours.allNeighbours[i].Value == 0)
+                    if (this.neighbours.allNeighbours[allignedNeighbour].landValue == landValueType.water)
                     {
-                        return true;
+                        this.landValue = landValueType.coast;
+                        return;
                     }
                 }
+                this.landValue = landValueType.land;
+                return;
+            } else
+            {
+                this.landValue = landValueType.water;
             }
         }
-        return false;
     }
 
-    public void setNeighbours(MapTile[] neighbours)
+    public void setNeighbours(Neighbours neighbours)
     {
-        this.neighbours.setAllNeighbours(neighbours);
+        this.neighbours = neighbours;
     }
 
     public Neighbours getNeighbours()

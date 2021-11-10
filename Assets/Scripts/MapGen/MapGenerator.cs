@@ -1,74 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LandTypes;
 using UnityEngine.Tilemaps;
 
 public class MapGenerator : MonoBehaviour
 {
-    private int caRuns;
-    private int size;
-    private int waterLevel;
+    private MapManager mm;
 
-    private RuleTile groundRuleTile;
-    private Tile waterTile;
-    
-    private Tilemap ground;
-    private Tilemap water;
-
-    private MapTile[,] map;
+    private Map map;
 
     void Start()
     {
-        getResources();
-        initMap();
-        map = CAMG.generateMap(map, caRuns, waterLevel);
+        this.mm = GameObject.Find("MapManager").GetComponent<MapManager>();
+        this.map = new Map(mm.MapSize);
+        CellularAutomataMapGenerator.generateMap(ref this.map, mm.CaRuns, mm.WaterLevel);
         drawMap();
-        GameObject.Find("MapManager").GetComponent<MapManager>().Map = map;
+        mm.Map = this.map;
     }
+
+    
 
     private void drawMap()
     {
-        getResources();
-        for (int i = 0; i < map.GetLength(0); i++)
+        for (int i = 0; i < mm.MapSize; i++)
         {
-            for (int j = 0; j < map.GetLength(1); j++)
+            for (int j = 0; j < mm.MapSize; j++)
             {
-                if (map[i, j].Value > 0)
+                if (LandValueTypeFunctions.isLandType(this.map.getTile(i, j).LandValue))
                 {
-                    ground.SetTile(new Vector3Int(i, j, 0), groundRuleTile);
+                    mm.Ground.SetTile(new Vector3Int(i, j, 0), mm.GroundRuleTile);
                 }
-                water.SetTile(new Vector3Int(i, j, 0), waterTile);
-            }
-        }
-    }
-
-    private void getResources()
-    {
-        MapManager mm = GameObject.Find("MapManager").GetComponent<MapManager>();
-        size = mm.MapSize;
-        caRuns = mm.CaRuns;
-        waterLevel = mm.WaterLevel;
-        groundRuleTile = mm.groundRuleTile;
-        waterTile = mm.waterTile;
-        ground = mm.ground;
-        water = mm.water;
-    }
-
-    private void initMap()
-    {
-        for (int i = -1; i <= size; i++) //-1 und <=, damit eine Reihe mehr mit lehren Feldern erstellt wird
-        {
-            for (int j = -1; j <= size; j++)
-            {
-                map[i, j] = new MapTile(new Vector2(i, j));
-            }
-        }
-
-        for (int i = -1; i <= size; i++) //nachträglich Nachbarn vergeben, damit keine Nullreferences
-        {
-            for (int j = -1; j <= size; j++)
-            {
-                map[i, j].setNeighbours(MapAnalyzer.getNeighbours(map[i, j]));
+                mm.Water.SetTile(new Vector3Int(i, j, 0), mm.WaterTile);
             }
         }
     }
