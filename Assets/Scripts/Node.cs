@@ -1,0 +1,25 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Node
+{
+    public bool walkable;
+    public Vector2 worldPosition;
+
+    public int gCost;
+    public int hCost;
+
+    public Node parent;
+
+    public Node(bool walkable, Vector2 worldPosition)
+    {
+        this.walkable = walkable;
+        this.worldPosition = worldPosition;
+    }
+
+    public int getFCost()
+    {
+        return gCost + hCost;
+    }
+}
