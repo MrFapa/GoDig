@@ -12,19 +12,19 @@ public class BridgeBuilder
         Vector3 start = new Vector3(c1.x, c1.y, 0);
         Vector3 target = new Vector3(c2.x, c2.y, 0);
 
-        PlayerGrid grid = GameObject.Find("Playergrid").GetComponent<PlayerGrid>();
-        List<Node> path = Pathfinder.findPath(start, target, grid);
+        PlayerGrid grid = GameObject.Find("PlayerGrid").GetComponent<PlayerGrid>();
+        List<Node> path = Pathfinder.findPath(start, target, grid, true);
 
-        foreach (Node node in path)
-        {
-            //Gizmos.DrawCube(new Vector3(node.worldPosition.x, node.worldPosition.y, 0), new Vector3(1, 1, 0));
+        for(int i = 0; i < path.Count; i++)
+        {   
+            if(Converter.NodeToMaptile(path[i]).LandValue == LandTypes.LandValueType.water){
+                Converter.NodeToMaptile(path[i]).LandValue = LandTypes.LandValueType.bridge;
+            }
+             
         }
-    }
-
-    public static void constructBridgePath(MapTile[] path)
-    {
 
     }
+
 
 
 }

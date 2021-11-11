@@ -15,9 +15,12 @@ public class MapTile
 
 
     private LandValueType landValue;
-    public LandValueType LandValue { get; set; }
+    public LandValueType LandValue { get {return landValue;} 
+                                     set {landValue = value;} }
 
     private Map map;
+    //ToDo
+    //Referenz auf Insel in der das Tile enthalten ist
     public MapTile(Vector2Int position, Map map)
     {
         this.map = map;

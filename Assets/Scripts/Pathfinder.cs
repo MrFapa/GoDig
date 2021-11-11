@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pathfinder
 {
 
-    public static List<Node> findPath(Vector3 startPos, Vector3 targetPos, PlayerGrid grid)
+    public static List<Node> findPath(Vector3 startPos, Vector3 targetPos, PlayerGrid grid, bool ignoreWalkable)
     {
         Node startNode = grid.nodeFromWorldPoint(startPos);
         Node targetNode = grid.nodeFromWorldPoint(targetPos);
@@ -19,11 +19,13 @@ public class Pathfinder
         {
 
             Node currentNode = openSet[0];
-
-            if (!currentNode.walkable)
-            {
-                return new List<Node>();
+            if(!ignoreWalkable){
+                if (!currentNode.walkable)
+                {
+                    return new List<Node>();
+                }
             }
+            
             for (int i = 1; i < openSet.Count; i++)
             {
                 if (openSet[i].getFCost() < currentNode.getFCost() || (openSet[i].getFCost() == currentNode.getFCost() && openSet[i].hCost < currentNode.hCost))
@@ -42,8 +44,11 @@ public class Pathfinder
 
             foreach (Node neighbour in grid.searchNeighbours(currentNode))
             {
-                if (!neighbour.walkable || closedSet.Contains(neighbour))
+                if (closedSet.Contains(neighbour))
                 {
+                    continue;
+                }
+                if(!neighbour.walkable && !ignoreWalkable){
                     continue;
                 }
 

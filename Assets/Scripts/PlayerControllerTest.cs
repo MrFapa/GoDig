@@ -21,8 +21,7 @@ public class PlayerControllerTest : MonoBehaviour
     {
 
         path = new List<Node>();
-        pf = pg.GetComponent<Pathfinder>();
-
+        
         ArrayList possibleTiles = GameObject.Find("MapManager").GetComponent<MapManager>().Map.getMapTiles(new[] { LandTypes.LandValueType.land });
         int rdmNumber = Random.Range(0, possibleTiles.Count);
         Vector2Int playerPos = ((MapTile)possibleTiles[rdmNumber]).Position;
@@ -33,7 +32,7 @@ public class PlayerControllerTest : MonoBehaviour
     void Update()
     {
 
-        if (path.Count > 1)
+/*        if (path.Count > 1)
         {
             for (int i = 0; i < path.Count - 1; i++)
             {
@@ -51,7 +50,7 @@ public class PlayerControllerTest : MonoBehaviour
                 receivePath(mousePosition);
             }
 
-        }
+        }*/
     }
 
     // Update is called once per fram
@@ -63,7 +62,7 @@ public class PlayerControllerTest : MonoBehaviour
     void receivePath(Vector3 posToMove)
     {
         path = null;
-        path = Pathfinder.findPath(transform.position, posToMove, GameObject.Find("Playergrid").GetComponent<PlayerGrid>());
+        path = Pathfinder.findPath(transform.position, posToMove, GameObject.Find("Playergrid").GetComponent<PlayerGrid>(), false);
 
         string line = "";
         foreach (Node node in path)

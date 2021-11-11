@@ -22,11 +22,13 @@ public class MapManager : MonoBehaviour
     [Header("Tiles")]
     public RuleTile groundRuleTile;
     public Tile waterTile;
+    public RuleTile bridgeRuleTile;
 
 
     [Header("Tilemaps")]
     public Tilemap ground;
     public Tilemap water;
+    public Tilemap bridge;
 
     private Map map;
     public Map Map

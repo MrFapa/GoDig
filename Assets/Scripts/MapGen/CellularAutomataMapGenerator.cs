@@ -9,6 +9,7 @@ public class CellularAutomataMapGenerator
     {
         randomize(ref map, waterLevel);
         smoothen(ref map, runs);
+        updateTiles(ref map);
     }
 
     static void randomize(ref Map map, int waterLevel)
@@ -61,5 +62,16 @@ public class CellularAutomataMapGenerator
             return LandValueType.land;
 
         return LandValueType.water;
+    }
+
+    static void updateTiles(ref Map map)
+    {
+        for (int i = 0; i < map.Size; i++)
+        {
+            for (int j = 0; j < map.Size; j++)
+            {
+                map.getTile(i, j).updateLandType();
+            }
+        }
     }
 }

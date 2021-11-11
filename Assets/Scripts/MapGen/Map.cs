@@ -61,7 +61,8 @@ public class Map
                 islands.Add(newIsland);
             }
         }
-        Debug.Log(islands.Count);
+        this.islands = islands;
+        Debug.Log("Counted Islands: " + this.islands.Count);
     }
 
     private void initTiles()
@@ -117,6 +118,11 @@ public class Map
             return new Island();
         }
         return (Island)islands[index];
+    }
+
+    public int islandCount()
+    {
+        return islands.Count;
     }
 
 }

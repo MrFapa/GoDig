@@ -10,7 +10,7 @@ public class MapGenerator : MonoBehaviour
 
     private Map map;
 
-    void Awake()
+    public void InitMap()
     {
         Debug.Log(Time.realtimeSinceStartup + " | start");
         this.mm = GameObject.Find("MapManager").GetComponent<MapManager>();
@@ -22,19 +22,19 @@ public class MapGenerator : MonoBehaviour
         Debug.Log(Time.realtimeSinceStartup + " | map generiert");
         this.map.initIslands();
         Debug.Log(Time.realtimeSinceStartup + " | islands erkannt");
-        drawMap();
-        Debug.Log(Time.realtimeSinceStartup + " | gezeichnet");
-        mm.Map = this.map;
+    }
 
+    public void addBridge(){
         Island a = map.getIsland(0);
-        Island b = map.getIsland(1);
+        
+        int r = Random.Range(1, map.islandCount());
+        Island b = map.getIsland(r);
 
         BridgeBuilder.findBridgePath(a, b);
     }
 
 
-
-    private void drawMap()
+    public void drawMap()
     {
         for (int i = 0; i < mm.MapSize; i++)
         {
@@ -43,6 +43,10 @@ public class MapGenerator : MonoBehaviour
                 if (LandValueTypeFunctions.isLandType(this.map.getTile(i, j).LandValue))
                 {
                     mm.ground.SetTile(new Vector3Int(i, j, 0), mm.groundRuleTile);
+                }
+                if(LandValueType.bridge == this.map.getTile(i, j).LandValue){
+                    Debug.Log("AAAAAAA");
+                    mm.bridge.SetTile(new Vector3Int(i, j, 0), mm.bridgeRuleTile);
                 }
                 mm.water.SetTile(new Vector3Int(i, j, 0), mm.waterTile);
             }

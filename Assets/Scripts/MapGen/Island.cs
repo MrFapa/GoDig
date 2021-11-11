@@ -44,7 +44,6 @@ public class Island
         if (this.centerPoint == Vector2Int.zero)
         {
             int coastTiles = 0;
-            this.centerPoint = new Vector2Int(0, 0);
             foreach (MapTile tile in tiles)
             {
                 if (tile.LandValue == LandTypes.LandValueType.coast)
@@ -53,7 +52,7 @@ public class Island
                     coastTiles++;
                 }
             }
-            this.centerPoint = this.centerPoint / coastTiles;
+            this.centerPoint = this.centerPoint / coastTiles;            
         }
         return this.centerPoint;
     }

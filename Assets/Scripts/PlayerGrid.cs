@@ -11,7 +11,7 @@ public class PlayerGrid : MonoBehaviour
     }
     private int size;
 
-    void Start()
+    public void init()
     {
         size = GameObject.Find("MapManager").GetComponent<MapManager>().MapSize;
         grid = new Node[size, size];
