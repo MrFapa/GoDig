@@ -5,6 +5,10 @@ using UnityEngine;
 public class PlayerGrid : MonoBehaviour
 {
     private Node[,] grid;
+    public Node[,] Grid
+    {
+        get { return grid; }
+    }
     private int size;
 
     void Start()
@@ -43,18 +47,18 @@ public class PlayerGrid : MonoBehaviour
     public List<Node> searchNeighbours(Node node)
     {
         List<Node> neighbours = new List<Node>();
-        for(int i = -1; i < 2; i++)
+        for (int i = -1; i < 2; i++)
         {
-            for(int j = -1; j < 2; j++)
+            for (int j = -1; j < 2; j++)
             {
-                if(i == 0 && j == 0 || i == -1 && j == -1 || i == 1 && j == -1 || i == -1 && j == 1 || i == 1 && j == 1) 
+                if (i == 0 && j == 0 || i == -1 && j == -1 || i == 1 && j == -1 || i == -1 && j == 1 || i == 1 && j == 1)
                 {
                     continue;
                 }
-                int x = (int) node.worldPosition.x - i;
-                int y = (int) node.worldPosition.y - j;
+                int x = (int)node.worldPosition.x - i;
+                int y = (int)node.worldPosition.y - j;
 
-                if(x >= 0 && x < size && y >= 0 && y < size)
+                if (x >= 0 && x < size && y >= 0 && y < size)
                 {
                     neighbours.Add(grid[x, y]);
                 }
@@ -66,9 +70,13 @@ public class PlayerGrid : MonoBehaviour
 
     public Node nodeFromWorldPoint(Vector3 worldPosition)
     {
-        int x = (int) worldPosition.x;
-        int y = (int) worldPosition.y;
+        int x = (int)worldPosition.x;
+        int y = (int)worldPosition.y;
 
+        return grid[x, y];
+    }
+    public Node nodeFromWorldPoint(int x, int y)
+    {
         return grid[x, y];
     }
 

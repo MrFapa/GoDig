@@ -110,4 +110,13 @@ public class Map
         return tiles;
     }
 
+    public Island getIsland(int index)
+    {
+        if (islands.Count <= index)
+        {
+            return new Island();
+        }
+        return (Island)islands[index];
+    }
+
 }

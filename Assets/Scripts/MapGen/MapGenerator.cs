@@ -10,7 +10,7 @@ public class MapGenerator : MonoBehaviour
 
     private Map map;
 
-    void Start()
+    void Awake()
     {
         Debug.Log(Time.realtimeSinceStartup + " | start");
         this.mm = GameObject.Find("MapManager").GetComponent<MapManager>();
@@ -25,6 +25,11 @@ public class MapGenerator : MonoBehaviour
         drawMap();
         Debug.Log(Time.realtimeSinceStartup + " | gezeichnet");
         mm.Map = this.map;
+
+        Island a = map.getIsland(0);
+        Island b = map.getIsland(1);
+
+        BridgeBuilder.findBridgePath(a, b);
     }
 
 

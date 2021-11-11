@@ -2,19 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pathfinder : MonoBehaviour
+public class Pathfinder
 {
 
-    PlayerGrid grid;
-
-    void Awake()
+    public static List<Node> findPath(Vector3 startPos, Vector3 targetPos, PlayerGrid grid)
     {
-        grid = GetComponent<PlayerGrid>();
-    }
-
-
-     public List<Node> findPath(Vector3 startPos, Vector3 targetPos)
-     {
         Node startNode = grid.nodeFromWorldPoint(startPos);
         Node targetNode = grid.nodeFromWorldPoint(targetPos);
 
@@ -23,7 +15,7 @@ public class Pathfinder : MonoBehaviour
 
         openSet.Add(startNode);
 
-        while(openSet.Count > 0)
+        while (openSet.Count > 0)
         {
 
             Node currentNode = openSet[0];
@@ -32,7 +24,7 @@ public class Pathfinder : MonoBehaviour
             {
                 return new List<Node>();
             }
-            for(int i = 1; i < openSet.Count; i++)
+            for (int i = 1; i < openSet.Count; i++)
             {
                 if (openSet[i].getFCost() < currentNode.getFCost() || (openSet[i].getFCost() == currentNode.getFCost() && openSet[i].hCost < currentNode.hCost))
                 {
@@ -43,19 +35,21 @@ public class Pathfinder : MonoBehaviour
             openSet.Remove(currentNode);
             closedSet.Add(currentNode);
 
-            if(currentNode == targetNode)
+            if (currentNode == targetNode)
             {
                 return retracePath(startNode, targetNode);
             }
 
             foreach (Node neighbour in grid.searchNeighbours(currentNode))
             {
-                if(!neighbour.walkable || closedSet.Contains(neighbour)){
+                if (!neighbour.walkable || closedSet.Contains(neighbour))
+                {
                     continue;
                 }
 
                 int newMovCost = currentNode.gCost + getDistance(currentNode, neighbour);
-                if (newMovCost < neighbour.gCost || !openSet.Contains(neighbour)){
+                if (newMovCost < neighbour.gCost || !openSet.Contains(neighbour))
+                {
                     neighbour.gCost = newMovCost;
                     neighbour.hCost = getDistance(neighbour, targetNode);
                     neighbour.parent = currentNode;
@@ -70,9 +64,9 @@ public class Pathfinder : MonoBehaviour
             }
         }
         return new List<Node>();
-     }
+    }
 
-    List<Node> retracePath(Node startNode, Node endNode)
+    static List<Node> retracePath(Node startNode, Node endNode)
     {
         List<Node> path = new List<Node>();
         Node currentNode = endNode;
@@ -89,12 +83,12 @@ public class Pathfinder : MonoBehaviour
 
     }
 
-    int getDistance(Node nodeA, Node nodeB)
+    static int getDistance(Node nodeA, Node nodeB)
     {
-        int dstX = Mathf.Abs((int) (nodeA.worldPosition.x - nodeB.worldPosition.x));
-        int dstY = Mathf.Abs((int) (nodeA.worldPosition.y - nodeB.worldPosition.y));
+        int dstX = Mathf.Abs((int)(nodeA.worldPosition.x - nodeB.worldPosition.x));
+        int dstY = Mathf.Abs((int)(nodeA.worldPosition.y - nodeB.worldPosition.y));
 
-        if(dstX > dstY)
+        if (dstX > dstY)
         {
             return 14 * dstY + 10 * (dstX - dstY);
         }
