@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LandTypes;
+using NeighbourValues;
 
 public class MapTile
 {
@@ -16,45 +17,31 @@ public class MapTile
     private landValueType landValue;
     public landValueType LandValue { get; set; }
 
-    private Neighbours neighbours;
-
-    public MapTile(Vector2Int position)
+    private Map map;
+    public MapTile(Vector2Int position, Map map)
     {
+        this.map = map;
         this.position = position;
-        this.neighbours = new Neighbours();
         this.landValue = landValueType.undefined; //default value
     }
 
     public void updateLandType()
     {
-        if (neighbours != null)
-        {
-            if (this.landValue == landValueType.land || this.landValue == landValueType.coast)
-            {
-                foreach (int allignedNeighbour in this.neighbours.allignedNeighbours())
-                {
-                    if (this.neighbours.allNeighbours[allignedNeighbour].landValue == landValueType.water)
-                    {
-                        this.landValue = landValueType.coast;
-                        return;
-                    }
+        if(this.landValue == landValueType.water){
+            return;
+        }else if(LandValueTypeFunctions.isLandType(this.landValue)){
+            foreach(NeighbourValueType dir in System.Enum.GetValues(typeof(NeighbourValueType))){
+                MapTile neighbourTile = getNeighbour(dir);
+                if(neighbourTile.landValue == landValueType.water){
+                    this.landValue = landValueType.coast;
                 }
-                this.landValue = landValueType.land;
-                return;
-            } else
-            {
-                this.landValue = landValueType.water;
             }
         }
     }
 
-    public void setNeighbours(Neighbours neighbours)
+    public MapTile getNeighbour(NeighbourValues.NeighbourValueType dir)
     {
-        this.neighbours = neighbours;
+        return this.map.getTile(position + NeighbourValues.NeighbourValueTypeFunctions.Offset(dir));
     }
 
-    public Neighbours getNeighbours()
-    {
-        return this.neighbours;
-    }
 }

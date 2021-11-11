@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using LandTypes;
 using System.Linq;
+using NeighbourValues;
 
 public class CellularAutomataMapGenerator
 {
@@ -30,7 +31,7 @@ public class CellularAutomataMapGenerator
             {
                 for (int j = 0; j < map.Size; j++)
                 {
-                    mapUpdate[i, j] = getSmoothedLandValueType(map.getTile(new Vector2Int(i, j)).getNeighbours());
+                    mapUpdate[i, j] = getSmoothedLandValueType(map.getTile(i, j));
                 }
             }
 
@@ -44,13 +45,13 @@ public class CellularAutomataMapGenerator
         }
     }
 
-    static landValueType getSmoothedLandValueType(Neighbours neighbours)
+    static landValueType getSmoothedLandValueType(MapTile tile)
     {
         int landcount = 0;
-        foreach(MapTile neighbour in neighbours.allNeighbours)
-        {
-            if((neighbour != null) && (neighbour.LandValue == landValueType.land))
-            {
+
+        foreach(NeighbourValueType dir in System.Enum.GetValues(typeof(NeighbourValueType))){
+            MapTile neighbourTile = tile.getNeighbour(dir);
+            if(LandValueTypeFunctions.isLandType(neighbourTile.LandValue)){
                 landcount++;
             }
         }

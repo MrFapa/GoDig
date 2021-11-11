@@ -20,17 +20,13 @@ public class MapManager : MonoBehaviour
     public int WaterLevel { get { return waterLevel; } }
 
     [Header("Tiles")]
-    private RuleTile groundRuleTile;
-    public RuleTile GroundRuleTile { get { return groundRuleTile; } }
-    private Tile waterTile;
-    public Tile WaterTile { get { return waterTile; } }
+    public RuleTile groundRuleTile;
+    public Tile waterTile;
 
 
     [Header("Tilemaps")]
-    private Tilemap ground;
-    public Tilemap Ground { get { return ground; } }
-    private Tilemap water;
-    public Tilemap Water { get { return water; } }
+    public Tilemap ground;
+    public Tilemap water;
 
     private Map map;
     public Map Map

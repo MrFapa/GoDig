@@ -12,11 +12,12 @@ public class MapGenerator : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Starting Map Generation");
         this.mm = GameObject.Find("MapManager").GetComponent<MapManager>();
         this.map = new Map(mm.MapSize);
+        mm.Map = this.map;
         CellularAutomataMapGenerator.generateMap(ref this.map, mm.CaRuns, mm.WaterLevel);
         drawMap();
-        mm.Map = this.map;
     }
 
     
@@ -29,9 +30,9 @@ public class MapGenerator : MonoBehaviour
             {
                 if (LandValueTypeFunctions.isLandType(this.map.getTile(i, j).LandValue))
                 {
-                    mm.Ground.SetTile(new Vector3Int(i, j, 0), mm.GroundRuleTile);
+                    mm.ground.SetTile(new Vector3Int(i, j, 0), mm.groundRuleTile);
                 }
-                mm.Water.SetTile(new Vector3Int(i, j, 0), mm.WaterTile);
+                mm.water.SetTile(new Vector3Int(i, j, 0), mm.waterTile);
             }
         }
     }
