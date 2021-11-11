@@ -20,36 +20,36 @@ namespace NeighbourValues
     {
         public static Vector2Int Offset(NeighbourValueType dir)
         {
-            Vector2Int Result = new Vector2Int(0,0);
+            Vector2Int Result = new Vector2Int(0, 0);
             switch (dir)
             {
                 case NeighbourValueType.TopLeft:
-                    Result.Set(-1,-1);
+                    Result.Set(-1, -1);
                     break;
                 case NeighbourValueType.Top:
-                    Result.Set(0,-1);    
+                    Result.Set(0, -1);
                     break;
                 case NeighbourValueType.TopRight:
-                    Result.Set(1,-1);
+                    Result.Set(1, -1);
                     break;
                 case NeighbourValueType.Left:
-                    Result.Set(-1,0);
+                    Result.Set(-1, 0);
                     break;
                 case NeighbourValueType.Right:
-                    Result.Set(1,0);
+                    Result.Set(1, 0);
                     break;
                 case NeighbourValueType.BottomLeft:
-                    Result.Set(-1,1);
+                    Result.Set(-1, 1);
                     break;
                 case NeighbourValueType.Bottom:
-                    Result.Set(0,-1);
+                    Result.Set(0, 1);
                     break;
                 case NeighbourValueType.BottomRight:
-                    Result.Set(1,-1);
+                    Result.Set(1, 1);
                     break;
             }
             return Result;
         }
     }
-    
+
 }
