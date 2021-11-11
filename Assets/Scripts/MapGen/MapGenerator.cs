@@ -12,15 +12,22 @@ public class MapGenerator : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Starting Map Generation");
+        Debug.Log(Time.realtimeSinceStartup + " | start");
         this.mm = GameObject.Find("MapManager").GetComponent<MapManager>();
+
         this.map = new Map(mm.MapSize);
+        Debug.Log(Time.realtimeSinceStartup + " | map erstellt");
         mm.Map = this.map;
         CellularAutomataMapGenerator.generateMap(ref this.map, mm.CaRuns, mm.WaterLevel);
+        Debug.Log(Time.realtimeSinceStartup + " | map generiert");
+        this.map.initIslands();
+        Debug.Log(Time.realtimeSinceStartup + " | islands erkannt");
         drawMap();
+        Debug.Log(Time.realtimeSinceStartup + " | gezeichnet");
+        mm.Map = this.map;
     }
 
-    
+
 
     private void drawMap()
     {

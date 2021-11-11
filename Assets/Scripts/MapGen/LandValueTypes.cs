@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LandTypes
 {
-    public enum landValueType
+    public enum LandValueType
     {
         undefined,
         land,
@@ -15,10 +15,10 @@ namespace LandTypes
 
     public class LandValueTypeFunctions
     {
-        public static bool isLandType(landValueType tileType)
+        public static bool isLandType(LandValueType tileType)
         {
-            return (tileType == landValueType.land || tileType == landValueType.coast);
+            return (tileType == LandValueType.land || tileType == LandValueType.coast);
         }
     }
-    
+
 }

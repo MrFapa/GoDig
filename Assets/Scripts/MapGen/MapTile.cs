@@ -14,26 +14,31 @@ public class MapTile
     }
 
 
-    private landValueType landValue;
-    public landValueType LandValue { get; set; }
+    private LandValueType landValue;
+    public LandValueType LandValue { get; set; }
 
     private Map map;
     public MapTile(Vector2Int position, Map map)
     {
         this.map = map;
         this.position = position;
-        this.landValue = landValueType.undefined; //default value
+        this.landValue = LandValueType.undefined; //default value
     }
 
     public void updateLandType()
     {
-        if(this.landValue == landValueType.water){
+        if (this.landValue == LandValueType.water)
+        {
             return;
-        }else if(LandValueTypeFunctions.isLandType(this.landValue)){
-            foreach(NeighbourValueType dir in System.Enum.GetValues(typeof(NeighbourValueType))){
+        }
+        else if (LandValueTypeFunctions.isLandType(this.landValue))
+        {
+            foreach (NeighbourValueType dir in System.Enum.GetValues(typeof(NeighbourValueType)))
+            {
                 MapTile neighbourTile = getNeighbour(dir);
-                if(neighbourTile.landValue == landValueType.water){
-                    this.landValue = landValueType.coast;
+                if (neighbourTile.landValue == LandValueType.water)
+                {
+                    this.landValue = LandValueType.coast;
                 }
             }
         }

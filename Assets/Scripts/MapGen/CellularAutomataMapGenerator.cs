@@ -13,20 +13,20 @@ public class CellularAutomataMapGenerator
 
     static void randomize(ref Map map, int waterLevel)
     {
-        for(int i = 0; i < map.Size; i++)
+        for (int i = 0; i < map.Size; i++)
         {
             for (int j = 0; j < map.Size; j++)
             {
-                map.getTile(new Vector2Int(i, j)).LandValue = (Random.Range(0, 1000) > waterLevel) ? landValueType.land : landValueType.water;
+                map.getTile(new Vector2Int(i, j)).LandValue = (Random.Range(0, 1000) > waterLevel) ? LandValueType.land : LandValueType.water;
             }
         }
     }
 
-    static void smoothen(ref Map map, int runs)
+    static void smoothen(ref Map map, int runCount)
     {
-        for (int run = 0; run < runs; run++)
+        for (int run = 0; run < runCount; run++)
         {
-            landValueType[,] mapUpdate = new landValueType[map.Size, map.Size];
+            LandValueType[,] mapUpdate = new LandValueType[map.Size, map.Size];
             for (int i = 0; i < map.Size; i++)
             {
                 for (int j = 0; j < map.Size; j++)
@@ -45,19 +45,21 @@ public class CellularAutomataMapGenerator
         }
     }
 
-    static landValueType getSmoothedLandValueType(MapTile tile)
+    static LandValueType getSmoothedLandValueType(MapTile tile)
     {
-        int landcount = 0;
+        int landcount = (LandValueTypeFunctions.isLandType(tile.LandValue)) ? 1 : 0;
 
-        foreach(NeighbourValueType dir in System.Enum.GetValues(typeof(NeighbourValueType))){
+        foreach (NeighbourValueType dir in System.Enum.GetValues(typeof(NeighbourValueType)))
+        {
             MapTile neighbourTile = tile.getNeighbour(dir);
-            if(LandValueTypeFunctions.isLandType(neighbourTile.LandValue)){
+            if (LandValueTypeFunctions.isLandType(neighbourTile.LandValue))
+            {
                 landcount++;
             }
         }
         if (landcount >= 5)
-            return landValueType.land;
+            return LandValueType.land;
 
-        return landValueType.water;
+        return LandValueType.water;
     }
 }

@@ -872,10 +872,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557ee693128a15143a7c32e0657cda9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSize: 24
-  caRuns: 4
-  waterLevel: 470
-  groundRuleTile: {fileID: 11400000, guid: 5f962b0df96967a45b13479e62d1613d, type: 2}
+  mapSize: 32
+  caRuns: 5
+  waterLevel: 520
+  groundRuleTile: {fileID: 11400000, guid: 546ebc31053536345b71637726b40a9c, type: 2}
   waterTile: {fileID: 11400000, guid: e0755b8d7aade18429fb6321d6829bdd, type: 2}
   ground: {fileID: 512018199}
   water: {fileID: 734505418}
