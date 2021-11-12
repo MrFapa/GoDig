@@ -17,11 +17,10 @@ public class PlayerControllerTest : MonoBehaviour
 
     private Vector3 nextPos;
 
-    void Start()
+    public void placePlayer()
     {
-
         path = new List<Node>();
-        
+
         ArrayList possibleTiles = GameObject.Find("MapManager").GetComponent<MapManager>().Map.getMapTiles(new[] { LandTypes.LandValueType.land });
         int rdmNumber = Random.Range(0, possibleTiles.Count);
         Vector2Int playerPos = ((MapTile)possibleTiles[rdmNumber]).Position;
@@ -32,25 +31,25 @@ public class PlayerControllerTest : MonoBehaviour
     void Update()
     {
 
-/*        if (path.Count > 1)
-        {
-            for (int i = 0; i < path.Count - 1; i++)
-            {
-                Debug.DrawLine(new Vector3(path[i].worldPosition.x, path[i].worldPosition.y, 1), new Vector3(path[i + 1].worldPosition.x, path[i + 1].worldPosition.y, 1), Color.red);
-            }
-        }
+        /*        if (path.Count > 1)
+                {
+                    for (int i = 0; i < path.Count - 1; i++)
+                    {
+                        Debug.DrawLine(new Vector3(path[i].worldPosition.x, path[i].worldPosition.y, 1), new Vector3(path[i + 1].worldPosition.x, path[i + 1].worldPosition.y, 1), Color.red);
+                    }
+                }
 
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (!isMoving)
-            {
-                Vector3 mousePosition = Camera.main.ScreenToWorldPoint((Input.mousePosition));
-                mousePosition.z = 0;
-                receivePath(mousePosition);
-            }
+                if (Input.GetMouseButtonDown(0))
+                {
+                    if (!isMoving)
+                    {
+                        Vector3 mousePosition = Camera.main.ScreenToWorldPoint((Input.mousePosition));
+                        mousePosition.z = 0;
+                        receivePath(mousePosition);
+                    }
 
-        }*/
+                }*/
     }
 
     // Update is called once per fram

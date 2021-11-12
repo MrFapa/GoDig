@@ -39,6 +39,11 @@ public class Island
         }
     }
 
+    public bool contains(MapTile tile)
+    {
+        return this.tiles.Contains(tile);
+    }
+
     private Vector2Int getCenterPoint()
     {
         if (this.centerPoint == Vector2Int.zero)
@@ -52,7 +57,7 @@ public class Island
                     coastTiles++;
                 }
             }
-            this.centerPoint = this.centerPoint / coastTiles;            
+            this.centerPoint = this.centerPoint / coastTiles;
         }
         return this.centerPoint;
     }

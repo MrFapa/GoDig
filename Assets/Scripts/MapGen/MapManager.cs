@@ -9,7 +9,7 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private int mapSize;
     public int MapSize { get { return mapSize; } }
-    
+
     [SerializeField]
     private int caRuns;
     public int CaRuns { get { return caRuns; } }
@@ -18,17 +18,26 @@ public class MapManager : MonoBehaviour
     [Range(430, 520)]
     private int waterLevel;
     public int WaterLevel { get { return waterLevel; } }
+    [SerializeField]
+    [Range(0, 100)]
+    private int vegetationLevel;
+    public int VegetationLevel
+    {
+        get { return vegetationLevel; }
+    }
 
     [Header("Tiles")]
     public RuleTile groundRuleTile;
     public Tile waterTile;
     public RuleTile bridgeRuleTile;
+    public RandomTile vegetationRandomTile;
 
 
     [Header("Tilemaps")]
     public Tilemap ground;
     public Tilemap water;
     public Tilemap bridge;
+    public Tilemap vegetation;
 
     private Map map;
     public Map Map

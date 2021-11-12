@@ -24,9 +24,10 @@ public class MapGenerator : MonoBehaviour
         Debug.Log(Time.realtimeSinceStartup + " | islands erkannt");
     }
 
-    public void addBridge(){
+    public void addBridge()
+    {
         Island a = map.getIsland(0);
-        
+
         int r = Random.Range(1, map.islandCount());
         Island b = map.getIsland(r);
 
@@ -43,11 +44,19 @@ public class MapGenerator : MonoBehaviour
                 if (LandValueTypeFunctions.isLandType(this.map.getTile(i, j).LandValue))
                 {
                     mm.ground.SetTile(new Vector3Int(i, j, 0), mm.groundRuleTile);
+
+                    if (Random.Range(0, 100) < mm.VegetationLevel)
+                    {
+                        Debug.Log("Sup");
+                        mm.vegetation.SetTile(new Vector3Int(i, j, 0), mm.vegetationRandomTile);
+                    }
                 }
-                if(LandValueType.bridge == this.map.getTile(i, j).LandValue){
-                    Debug.Log("AAAAAAA");
+
+                if (LandValueType.bridge == this.map.getTile(i, j).LandValue)
+                {
                     mm.bridge.SetTile(new Vector3Int(i, j, 0), mm.bridgeRuleTile);
                 }
+
                 mm.water.SetTile(new Vector3Int(i, j, 0), mm.waterTile);
             }
         }
