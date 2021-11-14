@@ -9,7 +9,7 @@ public class Map
 
     private MapTile[,] mapTiles;
     private ArrayList islands;
-
+    private ArrayList bridges;
     private int size;
     public int Size { get { return size; } }
 
@@ -63,6 +63,26 @@ public class Map
         }
         this.islands = islands;
         Debug.Log("Counted Islands: " + this.islands.Count);
+    }
+
+    public void initBridges()
+    {
+        int sizeThreshold = GameObject.Find("MapManager").GetComponent<MapManager>().BridgeThreshold;
+        ArrayList islandsToCheck = new ArrayList();
+        foreach (Island island in this.islands)
+        {
+            if (island.Size > sizeThreshold)
+            {
+                islandsToCheck.Add(island);
+            }
+        }
+
+        Island[] islandsToCheckArray = new Island[islandsToCheck.Count];
+        for (int i = 0; i < islandsToCheck.Count; i++)
+        {
+            islandsToCheckArray[i] = (Island)islandsToCheck[i];
+        }
+        bridges = BridgeBuilder.buildBridges(islandsToCheckArray);
     }
 
     private void initTiles()

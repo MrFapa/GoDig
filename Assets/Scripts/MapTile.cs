@@ -15,8 +15,11 @@ public class MapTile
 
 
     private LandValueType landValue;
-    public LandValueType LandValue { get {return landValue;} 
-                                     set {landValue = value;} }
+    public LandValueType LandValue
+    {
+        get { return landValue; } //land, coast, water, ...
+        set { landValue = value; }
+    }
 
     private Map map;
     //ToDo
@@ -36,7 +39,7 @@ public class MapTile
         }
         else if (LandValueTypeFunctions.isLandType(this.landValue))
         {
-            foreach (NeighbourValueType dir in System.Enum.GetValues(typeof(NeighbourValueType)))
+            foreach (NeighbourValueType dir in System.Enum.GetValues(typeof(NeighbourValueType))) //todo, check adjacent neigbours only
             {
                 MapTile neighbourTile = getNeighbour(dir);
                 if (neighbourTile.landValue == LandValueType.water)

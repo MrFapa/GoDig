@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +20,6 @@ public class PlayerControllerTest : MonoBehaviour
     public void placePlayer()
     {
         path = new List<Node>();
-
         ArrayList possibleTiles = GameObject.Find("MapManager").GetComponent<MapManager>().Map.getMapTiles(new[] { LandTypes.LandValueType.land });
         int rdmNumber = Random.Range(0, possibleTiles.Count);
         Vector2Int playerPos = ((MapTile)possibleTiles[rdmNumber]).Position;
@@ -55,7 +54,7 @@ public class PlayerControllerTest : MonoBehaviour
     // Update is called once per fram
     void FixedUpdate()
     {
-        move();
+        //move();
     }
 
     void receivePath(Vector3 posToMove)

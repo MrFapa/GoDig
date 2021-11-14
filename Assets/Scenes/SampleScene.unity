@@ -1315,6 +1315,7 @@ MonoBehaviour:
   caRuns: 5
   waterLevel: 520
   vegetationLevel: 29
+  bridgeThreshold: 10
   groundRuleTile: {fileID: 11400000, guid: 2f6b9a3e88121ea49880bfe38c059bdf, type: 2}
   waterTile: {fileID: 11400000, guid: e0755b8d7aade18429fb6321d6829bdd, type: 2}
   bridgeRuleTile: {fileID: 11400000, guid: 09757f11cea9aa941b6f7c9f1730cddb, type: 2}
@@ -1411,7 +1412,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2005078920}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4400be667068834ca58e4076ca6310e, type: 3}
+  m_Script: {fileID: 11500000, guid: 484e008a9f90fb44dacaae399e6d40df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2005078922

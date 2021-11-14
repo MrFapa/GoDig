@@ -26,6 +26,13 @@ public class MapManager : MonoBehaviour
         get { return vegetationLevel; }
     }
 
+    [SerializeField]
+    private int bridgeThreshold;
+    public int BridgeThreshold
+    {
+        get { return bridgeThreshold; }
+    }
+
     [Header("Tiles")]
     public RuleTile groundRuleTile;
     public Tile waterTile;

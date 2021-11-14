@@ -11,6 +11,10 @@ public class Island
     {
         get { return getCenterPoint(); }
     }
+    public int Size
+    {
+        get { return tiles.Count; }
+    }
 
     public Island(ArrayList associatedTiles)
     {

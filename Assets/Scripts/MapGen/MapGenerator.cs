@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LandTypes;
@@ -22,6 +22,8 @@ public class MapGenerator : MonoBehaviour
         Debug.Log(Time.realtimeSinceStartup + " | map generiert");
         this.map.initIslands();
         Debug.Log(Time.realtimeSinceStartup + " | islands erkannt");
+        this.map.initBridges();
+        Debug.Log(Time.realtimeSinceStartup + " | brücken gebaut");
     }
 
     public void addBridge()
@@ -31,7 +33,7 @@ public class MapGenerator : MonoBehaviour
         int r = Random.Range(1, map.islandCount());
         Island b = map.getIsland(r);
 
-        BridgeBuilder.findBridgePath(a, b);
+        //BridgeBuilder.findBridgePath(a, b);
     }
 
 
@@ -47,7 +49,6 @@ public class MapGenerator : MonoBehaviour
 
                     if (Random.Range(0, 100) < mm.VegetationLevel)
                     {
-                        Debug.Log("Sup");
                         mm.vegetation.SetTile(new Vector3Int(i, j, 0), mm.vegetationRandomTile);
                     }
                 }
