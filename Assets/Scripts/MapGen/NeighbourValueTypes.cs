@@ -50,6 +50,32 @@ namespace NeighbourValues
             }
             return Result;
         }
+
+        public static Vector2Int AdjacentNeighbours(NeighbourValueType dir)
+        {
+            Vector2Int Result = new Vector2Int(0, 0);
+            switch (dir)
+            {
+                case NeighbourValueType.Top:
+                    Result.Set(0, -1);
+                    break;
+                case NeighbourValueType.Left:
+                    Result.Set(-1, 0);
+                    break;
+                case NeighbourValueType.Right:
+                    Result.Set(1, 0);
+                    break;
+                case NeighbourValueType.Bottom:
+                    Result.Set(0, 1);
+                    break;
+            }
+            return Result;
+        }
+
+        public static bool isAdjacentneighbour(NeighbourValueType dir)
+        {
+            return (dir == NeighbourValueType.Top || dir == NeighbourValueType.Right || dir == NeighbourValueType.Left || dir == NeighbourValueType.Bottom);
+        }
     }
 
 }

@@ -989,31 +989,30 @@ Tilemap:
       e33: 0
   - m_RefCount: 0
     m_Data:
-      e00: NaN
-      e01: 0
-      e02: 0
-      e03: NaN
-      e10: NaN
-      e11: 0
-      e12: 0
-      e13: NaN
-      e20: 0.000000002226404
-      e21: 0
-      e22: 0.000000004062528
-      e23: 7.718507e+9
-      e30: 7.57e-43
-      e31: 0
-      e32: 7.57e-43
-      e33: 4.5905e-41
+      e00: 1.084227e-19
+      e01: -2.2285202e+26
+      e02: -1.1000034e-19
+      e03: -7.524479
+      e10: 9.6e-43
+      e11: 4.5904e-41
+      e12: 9.61e-43
+      e13: 9.58e-43
+      e20: 6e-45
+      e21: 3.770233e+32
+      e22: 3.7698926e+32
+      e23: 3.7698926e+32
+      e30: 0
+      e31: 2.58e-43
+      e32: 2.58e-43
+      e33: 2.58e-43
   m_TileColorArray:
   - m_RefCount: 0
-    m_Data: {r: -0.0000000013873951, g: -0.0000000013873951, b: -0.0000000013873951,
-      a: -0.0000000013873951}
+    m_Data: {r: -1.1000034e-19, g: -1.1000034e-19, b: -1.1000034e-19, a: -1.1000034e-19}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -8, y: -7, z: 0}
-  m_Size: {x: 12, y: 9, z: 1}
+  m_Size: {x: 64, y: 24, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -1315,7 +1314,7 @@ MonoBehaviour:
   caRuns: 5
   waterLevel: 520
   vegetationLevel: 29
-  bridgeThreshold: 10
+  bridgeThreshold: 20
   groundRuleTile: {fileID: 11400000, guid: 2f6b9a3e88121ea49880bfe38c059bdf, type: 2}
   waterTile: {fileID: 11400000, guid: e0755b8d7aade18429fb6321d6829bdd, type: 2}
   bridgeRuleTile: {fileID: 11400000, guid: 09757f11cea9aa941b6f7c9f1730cddb, type: 2}

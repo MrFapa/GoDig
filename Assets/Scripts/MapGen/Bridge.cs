@@ -15,14 +15,16 @@ public class Bridge
         this.island1 = i1;
         this.island2 = i2;
 
-        calcBridgePath(i1.CenterPoint, i2.CenterPoint);
+        initBridgePath();
     }
 
-    private void calcBridgePath(Vector2Int start, Vector2Int end)
+    private void initBridgePath()
     {
-        this.bridgePath = BridgeBuilder.findBridgePath(start, end);
-        this.startTile = (MapTile)this.bridgePath[0];
-        this.endTile = (MapTile)this.bridgePath[bridgePath.Count - 1];
+        Vector2Int averageCenter = (this.island1.CenterPoint + this.island2.CenterPoint) / 2;
+        this.startTile = island1.nearestCoastTileToCoord(averageCenter);
+        this.endTile = island2.nearestCoastTileToCoord(averageCenter);
+
+        this.bridgePath = BridgeBuilder.findBridgePath(this.startTile, this.endTile);
     }
 
     private void calcBridgePath()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LandTypes;
+using LandTopping;
 using UnityEngine.Tilemaps;
 
 public class MapGenerator : MonoBehaviour
@@ -53,7 +54,7 @@ public class MapGenerator : MonoBehaviour
                     }
                 }
 
-                if (LandValueType.bridge == this.map.getTile(i, j).LandValue)
+                if (LandToppingTypes.bridge == this.map.getTile(i, j).LandTopping)
                 {
                     mm.bridge.SetTile(new Vector3Int(i, j, 0), mm.bridgeRuleTile);
                 }

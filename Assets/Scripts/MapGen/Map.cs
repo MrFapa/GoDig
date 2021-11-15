@@ -45,19 +45,29 @@ public class Map
                 while (tilesToCheck.Count > 0)
                 {
                     MapTile currentTile = (MapTile)tilesToCheck.Pop();
-                    newIslandTileList.Add(currentTile);
+                    if (!newIslandTileList.Contains(currentTile))
+                    {
+                        newIslandTileList.Add(currentTile);
+                    }
                     unassignedTiles.Remove(currentTile);
                     assignedTiles.Add(currentTile);
                     foreach (NeighbourValueType dir in System.Enum.GetValues(typeof(NeighbourValueType)))
                     {
-                        MapTile Neighbour = currentTile.getNeighbour(dir);
-                        if (LandValueTypeFunctions.isLandType(Neighbour.LandValue) && (!newIslandTileList.Contains(Neighbour)))
+                        if (NeighbourValueTypeFunctions.isAdjacentneighbour(dir))
                         {
-                            tilesToCheck.Push(Neighbour);
+                            MapTile Neighbour = currentTile.getNeighbour(dir);
+                            if (LandValueTypeFunctions.isLandType(Neighbour.LandValue) && (!newIslandTileList.Contains(Neighbour)))
+                            {
+                                tilesToCheck.Push(Neighbour);
+                            }
                         }
                     }
                 }
                 Island newIsland = new Island(newIslandTileList);
+                foreach (MapTile currentTile in newIslandTileList)
+                {
+                    currentTile.setIsland(newIsland);
+                }
                 islands.Add(newIsland);
             }
         }

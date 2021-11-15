@@ -42,7 +42,7 @@ public class BridgeBuilder
             if (Converter.NodeToMaptile(path[i]).LandValue == LandValueType.water || Converter.NodeToMaptile(path[i]).LandValue == LandValueType.coast)
             {
                 bridgePath.Add(Converter.NodeToMaptile(path[i]));
-                Converter.NodeToMaptile(path[i]).LandValue = LandValueType.bridge;
+                Converter.NodeToMaptile(path[i]).LandTopping = LandTopping.LandToppingTypes.bridge;
             }
         }
         return bridgePath;
@@ -60,6 +60,7 @@ public class BridgeBuilder
         Vector2Int[] centerPoints = new Vector2Int[islands.Length];
         for (int i = 0; i < islands.Length; i++)
         {
+            Debug.Log("Inselgröße: " + islands[i].Size);
             centerPoints[i] = islands[i].CenterPoint;
         }
 

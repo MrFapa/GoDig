@@ -10,9 +10,7 @@ namespace LandTypes
         land,
         coast,
         water,
-        border,
-
-        bridge
+        border
     }
 
     public class LandValueTypeFunctions

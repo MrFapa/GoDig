@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LandTypes;
+using LandTopping;
 using NeighbourValues;
 
 public class MapTile
@@ -21,14 +22,22 @@ public class MapTile
         set { landValue = value; }
     }
 
+    private LandToppingTypes landTopping;
+    public LandToppingTypes LandTopping
+    {
+        get { return landTopping; }
+        set { landTopping = value; }
+    }
+
     private Map map;
-    //ToDo
-    //Referenz auf Insel in der das Tile enthalten ist
+    private Island island;
+
     public MapTile(Vector2Int position, Map map)
     {
         this.map = map;
         this.position = position;
         this.landValue = LandValueType.undefined; //default value
+        this.landTopping = LandToppingTypes.undefined;
     }
 
     public void updateLandType()
@@ -41,10 +50,13 @@ public class MapTile
         {
             foreach (NeighbourValueType dir in System.Enum.GetValues(typeof(NeighbourValueType))) //todo, check adjacent neigbours only
             {
-                MapTile neighbourTile = getNeighbour(dir);
-                if (neighbourTile.landValue == LandValueType.water)
+                if (NeighbourValueTypeFunctions.isAdjacentneighbour(dir))
                 {
-                    this.landValue = LandValueType.coast;
+                    MapTile neighbourTile = getNeighbour(dir);
+                    if (neighbourTile.landValue == LandValueType.water)
+                    {
+                        this.landValue = LandValueType.coast;
+                    }
                 }
             }
         }
@@ -53,6 +65,21 @@ public class MapTile
     public MapTile getNeighbour(NeighbourValues.NeighbourValueType dir)
     {
         return this.map.getTile(position + NeighbourValues.NeighbourValueTypeFunctions.Offset(dir));
+    }
+
+    public MapTile getAdjacentNeighbour(NeighbourValues.NeighbourValueType dir)
+    {
+        return this.map.getTile(position + NeighbourValues.NeighbourValueTypeFunctions.AdjacentNeighbours(dir));
+    }
+
+    public void setIsland(Island island)
+    {
+        this.island = island;
+    }
+
+    public Island getIsland()
+    {
+        return this.island;
     }
 
 }
